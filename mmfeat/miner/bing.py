@@ -7,6 +7,7 @@ Partially based on py-bing-search (https://github.com/tristantao/py-bing-search)
 import requests
 import time
 import urllib2
+# import urllib.request as urllib2
 
 from .base import BaseMiner
 
@@ -43,7 +44,7 @@ class BingMiner(BaseMiner):
         except ValueError:
             print('ERR: Request returned with code %s (%s)' % (r.status_code, r.text))
             if r.status_code == 401:
-                print 'ERR (Bing): It looks like your API key is invalid'
+                print ('ERR (Bing): It looks like your API key is invalid')
                 quit()
             time.sleep(self.sleep_time)
         return [BingResult(res) for res in results['d']['results']], '__next' in results['d']

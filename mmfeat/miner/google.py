@@ -4,14 +4,18 @@ Google Custom Search API miner
 
 import requests
 import time
+# import urllib.request as urllib2
 import urllib2
 
-from .base import BaseMiner, DailyLimitException
+from mmfeat.miner.base import BaseMiner, DailyLimitException
 
 class GoogleResult(object):
     def __init__(self, result):
         self.ID     = None # Google has no unique IDs
-        self.title  = result['title']
+        if 'title' not in result:
+            self.title = 'Anonymous'
+        else:
+            self.title  = result['title']
         self.url    = result['image']['thumbnailLink']
         self.format = 'image/jpg' # default thumbnail format
         # self.format = result['mime']
@@ -43,7 +47,7 @@ class GoogleMiner(BaseMiner):
         except ValueError:
             print('ERR: Request returned with code %s' % (r.status_code))
             if r.status_code == 429 or r.status_code == 503:
-                print 'ERR (Google): Too many requests, sleeping..'
+                print('ERR (Google): Too many requests, sleeping..')
                 time.sleep(self.sleep_time)
                 self.sleep_time *= self.sleep_time
                 if self.sleep_time > self.max_sleep_time:

@@ -42,14 +42,14 @@ class FreeSoundMiner(BaseMiner):
 
     def _search(self, query, limit=20, offset=1):
         url = self.getUrl(query, limit, offset)
-        print url
+        print (url)
         r = requests.get(url)
         try:
             results = r.json()
         except ValueError:
             print('ERR: Request returned with code %s (%s)' % (r.status_code, r.text))
             time.sleep(self.sleep_time)
-        print results
+        print (results)
         return [FreeSoundResult(res, self.api_keys[self.cur_api_key]) \
                 for res in results['results']], results['next'] is not None
 
@@ -58,7 +58,7 @@ class FreeSoundMiner(BaseMiner):
         results, isMoreLeft = self._search(query, limit, page)
         page = 2
         while isMoreLeft and len(results) < limit:
-            print page, isMoreLeft
+            print( page, isMoreLeft)
             max = limit - len(results)
             more_results, isMoreLeft = self._search(query, max, page)
             results += more_results

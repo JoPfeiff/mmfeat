@@ -2,6 +2,7 @@
 Base miner class
 '''
 
+# import  pickle
 import cPickle as pickle
 import json
 import os
@@ -54,7 +55,7 @@ class BaseMiner(object):
         for ii, query in enumerate(queries):
             if query in self.idx:
                 n_stored_results = len(self.idx[query])
-                print query, n_stored_results, 'present'
+                print(query, n_stored_results, 'present')
                 if n_stored_results >= limit:
                     print('%s already exists and has enough images, skipping..' % query)
                     continue

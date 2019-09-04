@@ -21,16 +21,19 @@ from mmfeat.cnn import *
 from mmfeat.space import *
 
 if __name__ == '__main__':
-    if len(sys.argv) != 3:
-        print('Usage: python %s {google|bing} {bovw|cnn}' % sys.argv[0])
-        quit()
+    # if len(sys.argv) != 3:
+    #     print('Usage: python %s {google|bing} {bovw|cnn}' % sys.argv[0])
+    #     quit()
 
-    engine = sys.argv[1]
-    method = sys.argv[2]
+    # engine = sys.argv[1]
+    engine = 'google'
+    # method = sys.argv[2]
+    method = 'bovw'
 
-    useGPU = True # change to False if you don't want to use the GPU
+    useGPU = False # change to False if you don't want to use the GPU
 
     data_dir = './demo-data-%s' % engine
+    # data_dir = '/Users/jonaspfeiffer/dev/mmfeat/demos/1-simrel/demo-data-%s' % engine
 
     #
     # 0. Set up evaluation data
@@ -41,7 +44,7 @@ if __name__ == '__main__':
     for [w1, w2, _] in men + simlex:
         words.extend([w1,w2])
     unique_words = list(set(words))
-
+    # unique_words = unique_words[:5]
     #
     # 1. Fetch images
     #
@@ -51,6 +54,7 @@ if __name__ == '__main__':
             miner = BingMiner(data_dir, '../../miner.yaml')
         elif engine == 'google':
             miner = GoogleMiner(data_dir, '../../miner.yaml')
+            # miner = GoogleMiner(data_dir, '../../miner.yaml')
         elif engine == 'freesound':
             miner = FreeSoundMiner(data_dir, '../../miner.yaml')
 

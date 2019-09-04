@@ -143,14 +143,14 @@ class FlickrMiner(BaseMiner):
         oauth_session.fetch_request_token(request_token_url)
         redirect_url = oauth_session.authorization_url(authorization_url)
 
-        print "Flickr needs user authentication"
-        print "--------------------------------"
-        print "Visit this site:"
+        print ("Flickr needs user authentication")
+        print ("--------------------------------")
+        print ("Visit this site:")
         # Flickr permissions:
         # read - permission to read private information
         # write - permission to add, edit and delete photo metadata (includes 'read')
         # delete - permission to delete photos (includes 'write' and 'read')
-        print redirect_url+"&perms=write"
+        print (redirect_url+"&perms=write")
 
         redirect_response = raw_input('Paste the FULL URL here:')
         oauth_session.parse_authorization_response(redirect_response)
